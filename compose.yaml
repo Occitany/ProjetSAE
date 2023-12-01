@@ -128,17 +128,16 @@ services:
   website:
   # Construction de l'image à partir d'un DockerFile
     build : website
+    container_name: website
     ports:
       - "8000:80"
-    # Nom du conteneur
-    container_name: symfony_website
     # Sous-réseaux auxquels le conteneur website est connecté
     networks:
       - minetest_network
       - dolibarr_network
-    # Dépendances du conteneur - Il attend que que le conteneur "dolibarr" soit lancé pour se lancer.
+    # Dépendances du conteneur - Il attend que que le conteneur "mariadb" soit lancé pour se lancer.
     depends_on:
-      - dolibarr
+      - mariadb
     # On set le user id à 1000 et le group ID à 1000 (variables d'environnement du conteneur)
     user: 1000:1000
     # Volumes de conteneurs pour configurer le vhost
